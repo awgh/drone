@@ -1,0 +1,42 @@
+{
+	"ContentKey": "JsQTwSsZW4srWuX+9iCi5SRCulXSWo3xwFIfbu3y9gtIIUmk8fzloo0Nik1R88mSpJ8ODsn9NzWJ22VQ/xtnnw==",
+	"RoutingKey": "b6f1o1e51JvMmoerJKWI47ZbYSTO+Pi03dOXvZCYzGbsVJbuoEmqo48Wnxag2GzCVeOrtJZS02jT5Nq3jrpQgQ==",
+	"Profiles": [],
+	"Contacts": [],
+	"Channels": [],
+	"Peers": null,
+	"Router": {
+		"CheckChannels": true,
+		"CheckContent": true,
+		"CheckProfiles": false,
+		"ForwardConsumedChannels": true,
+		"ForwardConsumedContent": false,
+		"ForwardConsumedProfiles": false,
+		"ForwardUnknownChannels": true,
+		"ForwardUnknownContent": true,
+		"ForwardUnknownProfiles": false,
+		"Patches": {},
+		"type": "default"
+	},
+	"Policies": [ {
+		"AdminMode": false,
+		"ListenURI": ":20001",
+		"Transport": {
+			"Certfile": "cert.pem",
+			"EccMode": true,
+			"Keyfile": "key.pem",
+			"type": "https"
+		},
+		"type": "server"
+	}, {
+		"AdminMode": true,
+		"ListenURI": "localhost:20002",
+		"Transport": {
+			"Certfile": "cert.pem",
+			"EccMode": true,
+			"Keyfile": "key.pem",
+			"type": "https"
+		},
+		"type": "server"
+	} ]
+}

@@ -37,4 +37,24 @@ func main() {
 	log.Println("Control Server starting: ", listenAdmin)
 
 	node.Start()
+
+	b, err := node.Export()
+	if err == nil {
+		log.Println(string(b))
+	} else {
+		log.Println(err)
+	}
+
+	node2 := ram.New(new(ecc.KeyPair), new(ecc.KeyPair))
+	err = node2.Import(b)
+	if err != nil {
+		log.Println(err)
+	} else {
+		b3, err := node2.Export()
+		if err == nil {
+			log.Println(string(b3))
+		} else {
+			log.Println(err)
+		}
+	}
 }
