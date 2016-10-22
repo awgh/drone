@@ -5,9 +5,10 @@ import (
 	"io/ioutil"
 	"log"
 
-	"github.com/awgh/bencrypt/ecc"
 	"github.com/awgh/ratnet/nodes/ram"
 
+	// Must underscore include any Keypairs, Routers, Policies, or Transports you want compiled in
+	_ "github.com/awgh/bencrypt/ecc"
 	_ "github.com/awgh/ratnet/policy"
 	_ "github.com/awgh/ratnet/router"
 	_ "github.com/awgh/ratnet/transports/https"
@@ -23,7 +24,7 @@ func main() {
 	if err != nil {
 		log.Println(err)
 	}
-	node := ram.New(new(ecc.KeyPair), new(ecc.KeyPair))
+	node := ram.New(nil, nil)
 	err = node.Import(content)
 	if err != nil {
 		log.Fatal(err)
