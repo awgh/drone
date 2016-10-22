@@ -7,6 +7,10 @@ import (
 
 	"github.com/awgh/bencrypt/ecc"
 	"github.com/awgh/ratnet/nodes/ram"
+
+	_ "github.com/awgh/ratnet/policy"
+	_ "github.com/awgh/ratnet/router"
+	_ "github.com/awgh/ratnet/transports/https"
 )
 
 func main() {
@@ -27,7 +31,7 @@ func main() {
 	log.Println("Starting...\n\n", string(content))
 	node.Start()
 
-	//func() {
+	//go func() {
 	for {
 		msg := <-node.Out()
 		log.Println(msg)
