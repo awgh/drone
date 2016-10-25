@@ -34,7 +34,15 @@ func main() {
 	log.Println("Starting...\n\n", string(content)+"\n")
 	node.Start()
 
-	//go func() {
+	/*
+		go func() {
+			for {
+				msg := <-node.Err()
+				log.Println(string(msg.Content.Bytes()))
+			}
+		}()
+	*/
+
 	for {
 		msg := <-node.Out()
 		nodeNew := ram.New(nil, nil)
@@ -48,5 +56,4 @@ func main() {
 			log.Println("Import failed:\n", string(content)+"\n")
 		}
 	}
-	//}()
 }
