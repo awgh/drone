@@ -1,6 +1,7 @@
 package main
 
 import (
+	"io/ioutil"
 	"os"
 	"testing"
 
@@ -63,8 +64,8 @@ func Test_node_Export_1(t *testing.T) {
 	}
 
 	// Router
-	node.Router().Patch(api.Patch{"one", []string{"and", "two"}})
-	node.Router().Patch(api.Patch{"three", []string{"four"}})
+	node.Router().Patch(api.Patch{From: "one", To: []string{"and", "two"}})
+	node.Router().Patch(api.Patch{From: "three", To: []string{"four"}})
 
 	// Policies and Transports
 	udpTransport := udp.New(node)
@@ -85,4 +86,15 @@ func Test_node_Export_1(t *testing.T) {
 		t.Fatal(err)
 	}
 	defer f.Close()
+}
+
+func Test_node_Import_1(t *testing.T) {
+	node := ram.New(nil, nil)
+	b, err := ioutil.ReadFile("test_config.json")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err := node.Import(b); err != nil {
+		t.Fatal(err)
+	}
 }
