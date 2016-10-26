@@ -16,7 +16,7 @@
 		"ForwardUnknownContent": true,
 		"ForwardUnknownProfiles": false,
 		"Patches": {},
-		"type": "default"
+		"Router": "default"
 	},
 	"Policies": [ {
 		"AdminMode": false,
@@ -25,9 +25,9 @@
 			"Certfile": "cert.pem",
 			"EccMode": true,
 			"Keyfile": "key.pem",
-			"type": "https"
+			"Transport": "https"
 		},
-		"type": "server"
+		"Policy": "server"
 	}, {
 		"AdminMode": true,
 		"ListenURI": "localhost:20002",
@@ -35,8 +35,8 @@
 			"Certfile": "cert.pem",
 			"EccMode": true,
 			"Keyfile": "key.pem",
-			"type": "https"
+			"Transport": "https"
 		},
-		"type": "server"
+		"Policy": "server"
 	} ]
 }
