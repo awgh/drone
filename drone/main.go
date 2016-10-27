@@ -34,26 +34,13 @@ func main() {
 	log.Println("Starting...\n\n", string(content)+"\n")
 	node.Start()
 
-	/*
-		go func() {
-			for {
-				msg := <-node.Err()
-				log.Println(string(msg.Content.Bytes()))
-			}
-		}()
-	*/
-
 	for {
 		msg := <-node.Out()
-		nodeNew := ram.New(nil, nil)
 		content := msg.Content.Bytes()
-		if err := nodeNew.Import(content); err == nil {
-			node.Stop()
-			node = nodeNew
-			log.Println("Restarting...\n\n", string(content)+"\n")
-			node.Start()
+		if err := node.Import(content); err == nil {
+			log.Println("Restarting with config:\n\n") //, string(content)+"\n")
 		} else {
-			log.Println("Import failed:\n", string(content)+"\n")
+			log.Println("Import failed:", err)
 		}
 	}
 }

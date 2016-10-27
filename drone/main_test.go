@@ -1,7 +1,9 @@
 package main
 
 import (
+	"bytes"
 	"io/ioutil"
+	"log"
 	"os"
 	"testing"
 
@@ -97,4 +99,45 @@ func Test_node_Import_1(t *testing.T) {
 	if err := node.Import(b); err != nil {
 		t.Fatal(err)
 	}
+}
+
+func Test_node_Import_2(t *testing.T) {
+	node := ram.New(nil, nil)
+	b, err := ioutil.ReadFile("test_config.json")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	var msg api.Msg
+	msg.Content = bytes.NewBuffer(b)
+	msg.IsChan = false
+	msg.Name = "fake"
+	msg.PubKey = nil
+
+	go func() {
+		for {
+			msg := <-node.Out()
+			content := msg.Content.Bytes()
+			if err := node.Import(content); err == nil {
+				log.Println("Restarting with:", string(content))
+			} else {
+				log.Println("Import failed:", err)
+			}
+
+		}
+	}()
+
+	node.Out() <- msg
+	b2, err := node.Export()
+	if err != nil {
+		t.Fatal(err)
+	}
+	f, err := os.OpenFile("test_config2.json", os.O_CREATE|os.O_WRONLY, 0644)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if _, err := f.Write(b2); err != nil {
+		t.Fatal(err)
+	}
+	defer f.Close()
 }
