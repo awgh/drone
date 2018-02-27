@@ -13,6 +13,7 @@ import (
 	_ "github.com/awgh/ratnet/policy"
 	_ "github.com/awgh/ratnet/router"
 	_ "github.com/awgh/ratnet/transports/https"
+	_ "github.com/awgh/ratnet/transports/tls"
 	_ "github.com/awgh/ratnet/transports/udp"
 )
 
@@ -38,7 +39,7 @@ func main() {
 		msg := <-node.Out()
 		content := msg.Content.Bytes()
 		if err := node.Import(content); err == nil {
-			log.Println("Restarting with config:\n\n") //, string(content)+"\n")
+			log.Println("Restarting with config:") //, string(content)+"\n")
 		} else {
 			log.Println("Import failed:", err)
 		}

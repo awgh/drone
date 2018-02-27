@@ -3,7 +3,6 @@ package main
 import (
 	"bytes"
 	"io/ioutil"
-	"log"
 	"os"
 	"testing"
 
@@ -72,7 +71,7 @@ func Test_node_Export_1(t *testing.T) {
 	// Policies and Transports
 	udpTransport := udp.New(node)
 	httpsTransport := https.New("cert.pem", "key.pem", node, true)
-	node.SetPolicy(policy.NewPoll(udpTransport, node), policy.NewServer(httpsTransport, ":20001", false))
+	node.SetPolicy(policy.NewPoll(udpTransport, node, 500), policy.NewServer(httpsTransport, ":20001", false))
 
 	// Done, print
 	b, err := node.Export()
@@ -119,9 +118,9 @@ func Test_node_Import_2(t *testing.T) {
 			msg := <-node.Out()
 			content := msg.Content.Bytes()
 			if err := node.Import(content); err == nil {
-				log.Println("Restarting with:", string(content))
+				t.Log("Restarting with:", string(content))
 			} else {
-				log.Println("Import failed:", err)
+				t.Log("Import failed:", err)
 			}
 
 		}

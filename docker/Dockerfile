@@ -11,6 +11,8 @@ RUN mkdir -p /gopath/bin && mkdir -p /gopath/pkg && mkdir -p /gopath/src
 WORKDIR /gopath/bin
 ADD config.json /gopath/bin/config.json
 
+RUN apk add --no-cache musl-dev
+
 RUN apk add -U git go && \  
   go get -v github.com/awgh/drone/drone && \
   apk del git go && \
