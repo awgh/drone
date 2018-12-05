@@ -1,42 +1,33 @@
 {
-	"ContentKey": "JsQTwSsZW4srWuX+9iCi5SRCulXSWo3xwFIfbu3y9gtIIUmk8fzloo0Nik1R88mSpJ8ODsn9NzWJ22VQ/xtnnw==",
-	"RoutingKey": "b6f1o1e51JvMmoerJKWI47ZbYSTO+Pi03dOXvZCYzGbsVJbuoEmqo48Wnxag2GzCVeOrtJZS02jT5Nq3jrpQgQ==",
-	"Profiles": [],
-	"Contacts": [],
-	"Channels": [],
-	"Peers": null,
-	"Router": {
-		"CheckChannels": true,
-		"CheckContent": true,
-		"CheckProfiles": false,
-		"ForwardConsumedChannels": true,
-		"ForwardConsumedContent": false,
-		"ForwardConsumedProfiles": false,
-		"ForwardUnknownChannels": true,
-		"ForwardUnknownContent": true,
-		"ForwardUnknownProfiles": false,
-		"Patches": {},
-		"Router": "default"
-	},
-	"Policies": [ {
-		"AdminMode": false,
-		"ListenURI": ":20001",
-		"Transport": {
-			"Certfile": "cert.pem",
-			"EccMode": true,
-			"Keyfile": "key.pem",
-			"Transport": "https"
-		},
-		"Policy": "server"
-	}, {
-		"AdminMode": true,
-		"ListenURI": "localhost:20002",
-		"Transport": {
-			"Certfile": "cert.pem",
-			"EccMode": true,
-			"Keyfile": "key.pem",
-			"Transport": "https"
-		},
-		"Policy": "server"
-	} ]
+    "ContentKey": "",
+    "ContentType": "Curve25519,AES-CBC-256,HMAC-SHA-256",
+    "RoutingKey": "",
+    "RoutingType": "Curve25519,AES-CBC-256,HMAC-SHA-256",
+    "Policies": [
+        {
+            "AdminMode": false,
+            "ListenURI": ":1337",
+            "Policy": "server",
+            "Transport": {
+                "Transport": "udp"
+            }
+        }
+    ],
+    "Profiles": [],
+    "Channels": [],
+    "Peers": [],
+    "Contacts": [],
+    "Router": {
+        "CheckChannels": true,
+        "CheckContent": true,
+        "CheckProfiles": false,
+        "ForwardConsumedChannels": true,
+        "ForwardConsumedContent": false,
+        "ForwardConsumedProfiles": false,
+        "ForwardUnknownChannels": true,
+        "ForwardUnknownContent": true,
+        "ForwardUnknownProfiles": false,
+        "Patches": null,
+        "Router": "default"
+    }
 }
