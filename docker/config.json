@@ -6,7 +6,7 @@
     "Policies": [
         {
             "AdminMode": false,
-            "ListenURI": ":1337",
+            "ListenURI": ":20001",
             "Policy": "server",
             "Transport": {
                 "Transport": "udp"
