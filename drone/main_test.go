@@ -9,7 +9,9 @@ import (
 	"github.com/awgh/ratnet/api"
 	"github.com/awgh/ratnet/nodes/ram"
 
+	"github.com/awgh/bencrypt/bc"
 	"github.com/awgh/bencrypt/ecc"
+
 	//"github.com/awgh/bencrypt/rsa"
 	"github.com/awgh/ratnet/policy"
 	"github.com/awgh/ratnet/transports/https"
@@ -70,8 +72,20 @@ func Test_node_Export_1(t *testing.T) {
 
 	// Policies and Transports
 	udpTransport := udp.New(node)
-	httpsTransport := https.New("cert.pem", "key.pem", node, true)
-	node.SetPolicy(policy.NewPoll(udpTransport, node, 500), policy.NewServer(httpsTransport, ":20001", false))
+
+	certfile := "cert.pem"
+	keyfile := "key.pem"
+	bc.InitSSL(certfile, keyfile, true)
+	tlscert, err := ioutil.ReadFile(certfile)
+	if err != nil {
+		t.Fatal(err)
+	}
+	tlskey, err := ioutil.ReadFile(keyfile)
+	if err != nil {
+		t.Fatal(err)
+	}
+	httpsTransport := https.New(tlscert, tlskey, node, true)
+	node.SetPolicy(policy.NewPoll(udpTransport, node, 500, 0), policy.NewServer(httpsTransport, ":20001", false))
 
 	// Done, print
 	b, err := node.Export()
