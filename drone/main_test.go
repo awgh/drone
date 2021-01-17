@@ -8,18 +8,19 @@ import (
 
 	"github.com/awgh/ratnet/api"
 	"github.com/awgh/ratnet/nodes/ram"
+	"github.com/awgh/ratnet/policy/poll"
+	"github.com/awgh/ratnet/policy/server"
 
 	"github.com/awgh/bencrypt/bc"
 	"github.com/awgh/bencrypt/ecc"
 
 	//"github.com/awgh/bencrypt/rsa"
-	"github.com/awgh/ratnet/policy"
+
 	"github.com/awgh/ratnet/transports/https"
 	"github.com/awgh/ratnet/transports/udp"
 )
 
 func Test_node_Export_1(t *testing.T) {
-
 	// Content and Routing Key Setup
 	routingKey := new(ecc.KeyPair)
 	routingKey.GenerateKey()
@@ -85,7 +86,7 @@ func Test_node_Export_1(t *testing.T) {
 		t.Fatal(err)
 	}
 	httpsTransport := https.New(tlscert, tlskey, node, true)
-	node.SetPolicy(policy.NewPoll(udpTransport, node, 500, 0), policy.NewServer(httpsTransport, ":20001", false))
+	node.SetPolicy(poll.New(udpTransport, node, 500, 0), server.New(httpsTransport, ":20001", false))
 
 	// Done, print
 	b, err := node.Export()
